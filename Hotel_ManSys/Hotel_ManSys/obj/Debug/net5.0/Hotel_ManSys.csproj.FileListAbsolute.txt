@@ -1,0 +1,16 @@
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.csproj.AssemblyReference.cache
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.AssemblyInfoInputs.cache
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.AssemblyInfo.cs
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.csproj.CoreCompileInputs.cache
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\Hotel_ManSys.exe
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\Hotel_ManSys.deps.json
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\Hotel_ManSys.runtimeconfig.json
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\Hotel_ManSys.runtimeconfig.dev.json
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\Hotel_ManSys.dll
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\ref\Hotel_ManSys.dll
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\bin\Debug\net5.0\Hotel_ManSys.pdb
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.dll
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\ref\Hotel_ManSys.dll
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.pdb
+C:\Users\musam\Desktop\Programming\Code_Academy\Hotel_ManSys\Hotel_ManSys\obj\Debug\net5.0\Hotel_ManSys.genruntimeconfig.cache
