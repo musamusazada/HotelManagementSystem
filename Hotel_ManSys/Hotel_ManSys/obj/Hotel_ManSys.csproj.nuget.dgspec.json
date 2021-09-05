@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj": {}
+    "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\HotelManagementSystem\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj": {}
   },
   "projects": {
-    "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj": {
+    "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\HotelManagementSystem\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj",
+        "projectUniqueName": "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\HotelManagementSystem\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj",
         "projectName": "Hotel_ManSys",
-        "projectPath": "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj",
+        "projectPath": "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\HotelManagementSystem\\Hotel_ManSys\\Hotel_ManSys\\Hotel_ManSys.csproj",
         "packagesPath": "C:\\Users\\musam\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\Hotel_ManSys\\Hotel_ManSys\\obj\\",
+        "outputPath": "C:\\Users\\musam\\Desktop\\Programming\\Code_Academy\\HotelManagementSystem\\Hotel_ManSys\\Hotel_ManSys\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

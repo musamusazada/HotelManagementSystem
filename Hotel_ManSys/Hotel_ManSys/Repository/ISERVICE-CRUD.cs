@@ -8,14 +8,14 @@ namespace Hotel_ManSys.Repository
 {
     interface ISERVICE_CRUD<T>
     {
-        public static T CREATE(T t) { return t; }
+        public T CREATE(T t);
 
         public T DELETE(T t);
 
-        public T Update(T t);
+        public T Update(T t, T t1);
 
         public T Get(string ID);
-        public static List<T> GetALL(List<T> t) { return t; }
+        public List<T> GetALL();
 
         
 

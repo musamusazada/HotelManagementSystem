@@ -14,20 +14,21 @@ namespace Hotel_ManSys.Moduls
         public int phoneNumber;
 
         //Access
-        private string secureID;
-        private string username;
-        private string pwd;
-        private string security_question;
-        private string security_answer;
+        private string _secureID;
+        private string _username;
+        private string _pwd;
+        private string _security_question;
+        private string _security_answer;
 
+        //Constructor
         public ADMIN(string userName , string PWD, byte Age, string Security_Question, string Security_Answer)
         {
-            this.username = userName;
-            this.pwd = PWD;
+            this._username = userName;
+            this._pwd = PWD;
             this.age = Age;
-            this.secureID = ID_Generator(userName, Age,Security_Answer);
-            this.security_question = Security_Question;
-            this.security_answer = Security_Answer;
+            this._secureID = ID_Generator(userName, Age,Security_Answer);
+            this._security_question = Security_Question;
+            this._security_answer = Security_Answer;
         }
 
         //Generating Unique Secure ID;
@@ -41,11 +42,11 @@ namespace Hotel_ManSys.Moduls
 
 
         //GETTERS FOR PRIVATE FIELDS
-        public string SECUREID { get => this.secureID; }
-        public string USERNAME { get => this.username; }
-        public string PWD { get => this.pwd; }
-        public string SECURITY_QUESTION { get => this.security_question; }
-        public string SECURITY_ANSWER { get => this.security_answer; }
+        public string SECUREID { get => this._secureID; }
+        public string USERNAME { get => this._username; }
+        public string PWD { get => this._pwd; }
+        public string SECURITY_QUESTION { get => this._security_question; }
+        public string SECURITY_ANSWER { get => this._security_answer; }
 
     }
 }

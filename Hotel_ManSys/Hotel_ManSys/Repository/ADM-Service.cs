@@ -19,22 +19,33 @@ namespace Hotel_ManSys.Repository
 
         };
 
-        //Adding to List
-        public static ADMIN CREATE(ADMIN t)
+        //Security Questions List
+        public static List<string> QUESTIONS = new List<string>()
+        {
+            "Favourite Color? ",
+            "Your first dog's name? ",
+            "Your favourite Marval Character? ",
+            "Strongest man on earth ? ",
+            "Atani yoxsa anani cox isteyirsen? "
+        };
+
+        //Adding to the List
+        public  ADMIN CREATE(ADMIN t)
         {
             
             admins.Add(t);
             return t;
         }
-        //Creation handler
+     
        
-
+        //Deleting from the List
         public ADMIN DELETE(ADMIN t)
         {
             admins.Remove(t);
             return t;
         }
 
+        //Getting from the List
         public ADMIN Get(string ID)
         {
             ADMIN result = admins.Find(adm => adm.SECUREID == ID);
@@ -46,24 +57,23 @@ namespace Hotel_ManSys.Repository
         }
 
 
-
-        public static List<ADMIN>  GetALL()
+        //Getting all list items
+        public  List<ADMIN>  GetALL()
         {
             return admins;
         }
 
-        public ADMIN Update(ADMIN t)
+        //Updating list item
+        public ADMIN Update(ADMIN t, ADMIN new_T)
         {
-            ADMIN result = admins.Find(adm => adm.SECUREID == t.SECUREID);
-            if (result != null)
-            {
-                admins.Remove(result);
-                admins.Add(t);
-                return t;
-            }
-            return null;
+            admins.Remove(t);
+            admins.Add(new_T);
+
+            return new_T;
+            
         }
 
+        //Validation Method being used for Login Procedure
         public bool VALIDATION(List<string> Log_Info)
         {
             ADMIN result = admins.Find(adm => adm.USERNAME == Log_Info[0] && adm.PWD == Log_Info[1]);
@@ -75,6 +85,7 @@ namespace Hotel_ManSys.Repository
 
         }
 
+        //Random Secuirty Question Creator
         public static string SecurityQuestionCreator(List<string> Qlist)
         {
             Random r = new Random();
@@ -83,14 +94,7 @@ namespace Hotel_ManSys.Repository
             return Qlist[randNum];
         }
 
-        public static List<string> QUESTIONS = new List<string>()
-        {
-            "Favourite Color? ",
-            "Your first dog's name? ",
-            "Your favourite Marval Character? ",
-            "Strongest man on earth ? ",
-            "Atani yoxsa anani cox isteyirsen? "
-        };
+        
 
 
 
