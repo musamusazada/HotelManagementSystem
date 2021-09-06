@@ -33,7 +33,7 @@ namespace Hotel_ManSys.MenuSystem
                 {
 
                     prefix = "*";
-                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Yellow;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
                 else
@@ -52,10 +52,12 @@ namespace Hotel_ManSys.MenuSystem
         public int Run()
         {
             Console.CursorVisible = false;
+           
             ConsoleKey keyPressed;
             do
             {
                 Console.Clear();
+
                 DisplayInfo();
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);

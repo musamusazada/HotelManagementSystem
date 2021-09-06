@@ -162,6 +162,7 @@ namespace Hotel_ManSys.MenuSystem
                     break;
                 case 5:
                     Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     CenterTXTL("Program Terminated");
                     Console.ReadKey(true);
                     break;
@@ -177,6 +178,7 @@ namespace Hotel_ManSys.MenuSystem
         private static void AdminMenu()
         {
             Console.Clear();
+
             string prompt = @"
                                                                                                 (       *    (       )  
                                                                                            (    )\ )  (  `   )\ ) ( /(  
@@ -354,6 +356,7 @@ namespace Hotel_ManSys.MenuSystem
         public static void RoomsMenu()
         {
             Console.Clear();
+
             string prompt = @"
                                                                                          _ __    __    __  _ _ _   ()  
                                                                                         ' )  )  / ')  / ')' ) ) )  /\  
@@ -494,6 +497,8 @@ namespace Hotel_ManSys.MenuSystem
         public static void CustomerMenu()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.BackgroundColor = ConsoleColor.Gray;
             string prompt = @"                                                                                                                                  
                                                      _/_/_/      _/    _/         _/_/_/   _/_/_/_/_/        _/_/        _/      _/       _/_/_/_/       _/_/_/          _/_/_/   
                                                   _/            _/    _/       _/             _/          _/    _/      _/_/  _/_/       _/             _/    _/      _/          
@@ -661,6 +666,8 @@ namespace Hotel_ManSys.MenuSystem
         private static void BookingMenu()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.BackgroundColor = ConsoleColor.Gray;
             string prompt = @"
                                                                                 .----.  .----.  .----. .-. .-..-..-. .-. .---. 
                                                                                 | {}  }/  {}  \/  {}  \| |/ / | ||  `| |/   __}
@@ -980,6 +987,7 @@ namespace Hotel_ManSys.MenuSystem
         private static void BookingReport()
         {
             Console.Clear();
+
             string prompt = @"
                                                                                  _______  _______  _______  _______  _______ _________ _______ 
                                                                                 (  ____ )(  ____ \(  ____ )(  ___  )(  ____ )\__   __/(  ____ \
@@ -1079,6 +1087,7 @@ namespace Hotel_ManSys.MenuSystem
         private static void AnimationIntro()
         {
             Console.CursorVisible = false;
+          
             ConsoleKeyInfo keyAvail;
             string s = @"Welcome to ~~el Hotel de Viaje~~
 with our exclusive rooms, you will feel like you had a World Tour Trip :)";
