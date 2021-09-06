@@ -1034,7 +1034,7 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXT("Enter Date: ");
                     inDATE_input = Console.ReadLine();
                     success = DateTime.TryParse(inDATE_input, out inDATE);
-                    booking_List = bookingService.GetALL().FindAll((booking => booking.check_inDATE < inDATE && booking.check_outDATE > inDATE));
+                    booking_List = bookingService.GetALL().FindAll((booking => booking.check_inDATE <= inDATE && booking.check_outDATE >= inDATE));
                     if (booking_List.Count > 0)
                     {
                         foreach (BOOKING booking in booking_List)
