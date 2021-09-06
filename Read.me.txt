@@ -1,0 +1,16 @@
+~~Hotel Management System with Menu Implementation~~
+
+Features:
+*Fully Navigatable Menu
+*Auto Unique ID Generator
+*Secure Password Input
+*Booking System
+*CRUD for Admins, Customers, Rooms, Bookings
+
+----------------------------------------------------------
+
+User Arrow Keys to navigate and Enter for Next Page/Menu
+
+----------------------------------------------------------
+
+

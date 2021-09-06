@@ -27,10 +27,11 @@ namespace Hotel_ManSys.MenuSystem
         public static string password;
         public static string secQuestion;
         public static string secAnswer;
-        public static ADMIN  result;
+        public static ADMIN result;
         public static ADMIN update_Result;
         public static CUSTOMER customer;
         public static CUSTOMER customer_update;
+
         //Defaults for Room Creation;
         public static string RoomNumber;
         public static string RoomType;
@@ -44,15 +45,19 @@ namespace Hotel_ManSys.MenuSystem
         public static string inDATE_input;
         public static string outDATE_input;
 
-        //Booking Lists
-        public static List<BOOKING> availRooms;
-        public static List<ROOM> availRooms2;
+        //Booking Lists 
+        public static List<BOOKING> availRoomsBOOKINGLIST;
+        public static List<ROOM> availRoomsROOMLIST;
+        //Available Room Dublicate Handler
+        public static bool dublicate = false;
+
         //Booking Object for CRUD
         public static BOOKING booking;
         public static BOOKING booking_update;
 
         //Booking Reports
         public static List<BOOKING> booking_List;
+
         //Default for ADM Update
         public static string ID;
 
@@ -60,21 +65,21 @@ namespace Hotel_ManSys.MenuSystem
         public static CultureInfo cultInfo = CultureInfo.InvariantCulture;
 
         //Creating Service Instances
-       static ADM_Service admService = new ADM_Service();
-       static ROOM_Service roomService = new ROOM_Service();
-       static CUSTOMER_Service custService = new CUSTOMER_Service();
-       static Booking_Service bookingService = new Booking_Service();
-      
+        static ADM_Service admService = new ADM_Service();
+        static ROOM_Service roomService = new ROOM_Service();
+        static CUSTOMER_Service custService = new CUSTOMER_Service();
+        static Booking_Service bookingService = new Booking_Service();
+
 
         //Static Counter for Login Validation
-       internal static byte log_counter = 0;
+        internal static byte log_counter = 0;
 
-        
+        //Start Method to run up the system on Program CS
         public void Start()
         {
             //Setting up Console environment
-            Console.SetWindowSize(220, 40);          
-            Console.Title="el Hotel de Viaje // The Trip Hotel";
+            Console.SetWindowSize(220, 40);
+            Console.Title = "el Hotel de Viaje // The Trip Hotel";
 
             //Animations Starting
             AnimationIntro();
@@ -88,13 +93,13 @@ namespace Hotel_ManSys.MenuSystem
         }
 
         //Login Procedure Handler method
-        private void RunLogin(string loginPrompt = "Press Enter to Login" , string promptUserName = "Username: ", string promptPWD = "Password: ")
+        private void RunLogin(string loginPrompt = "Press Enter to Login", string promptUserName = "Username: ", string promptPWD = "Password: ")
         {
-           
+
 
             List<string> Log_Info = LoginMethods.LoginProcess(loginPrompt, promptUserName, promptPWD);
             bool result = admService.VALIDATION(Log_Info);
-            if(result)
+            if (result)
             {
                 Console.Clear();
                 DashBoardMENU();
@@ -102,7 +107,7 @@ namespace Hotel_ManSys.MenuSystem
             else
             {
                 log_counter++;
-                if(log_counter<3)
+                if (log_counter < 3)
                 {
                     Console.Clear();
                     RunLogin("Failed Login, Try Again", "Re-enter Username: ", "Re-enter Password: ");
@@ -127,16 +132,16 @@ namespace Hotel_ManSys.MenuSystem
         private static void DashBoardMENU()
         {
             Console.Clear();
-        string prompt = @"
+            string prompt = @"
                                                              _____     ______     ______     __  __     ______     ______     ______     ______     _____    
                                                             /\  __-.  /\  __ \   /\  ___\   /\ \_\ \   /\  == \   /\  __ \   /\  __ \   /\  == \   /\  __-.  
                                                             \ \ \/\ \ \ \  __ \  \ \___  \  \ \  __ \  \ \  __<   \ \ \/\ \  \ \  __ \  \ \  __<   \ \ \/\ \ 
                                                              \ \____-  \ \_\ \_\  \/\_____\  \ \_\ \_\  \ \_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \____- 
                                                               \/____/   \/_/\/_/   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_/\/_/   \/_/ /_/   \/____/ 
                                                                                                                                                              ";
-            Menu dashboardMenu = new Menu(prompt, new List<string>() { "Admins","Customers","Rooms","Booking","Booking Reports" ,"Exit"});
-            int selectedIndex =  dashboardMenu.Run();
-             
+            Menu dashboardMenu = new Menu(prompt, new List<string>() { "Admins", "Customers", "Rooms", "Booking", "Booking Reports", "Exit" });
+            int selectedIndex = dashboardMenu.Run();
+
 
             switch (selectedIndex)
             {
@@ -166,7 +171,7 @@ namespace Hotel_ManSys.MenuSystem
 
 
 
-
+        //Admin CRUD Menu
         #region Admin
         // Admin Menu for Dashboard.
         private static void AdminMenu()
@@ -182,10 +187,10 @@ namespace Hotel_ManSys.MenuSystem
                                                                                           / _ \ | |) | |\/| || | | .` | 
                                                                                          /_/ \_\|___/|_|  |_|___||_|\_| 
                                                                                                                         ";
-            Menu admMenu = new Menu(prompt, new List<string>() { "Create", "Update" , "Delete" , "Find" , "List" , "Exit" });
+            Menu admMenu = new Menu(prompt, new List<string>() { "Create", "Update", "Delete", "Find", "List", "Exit" });
             int selectedIndex = admMenu.Run();
 
-            switch(selectedIndex)
+            switch (selectedIndex)
             {
                 //Create new Admin
                 case 0:
@@ -196,7 +201,7 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXT("Enter Age: ");
                     success = Byte.TryParse(Console.ReadLine(), out Age);
                     while (!success)
-                    {                      
+                    {
                         CenterTXTL("");
                         CenterTXT("Invalid Age! Enter again: ");
                         success = Byte.TryParse(Console.ReadLine(), out Age);
@@ -226,7 +231,7 @@ namespace Hotel_ManSys.MenuSystem
 
                     ADMIN adm = new ADMIN(userName, password, Age, secQuestion, secAnswer);
                     admService.CREATE(adm);
-                    CenterTXTL ("User Created!");
+                    CenterTXTL("User Created!");
                     AdminMenu();
                     break;
                 // Update Admin
@@ -235,13 +240,13 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXT("Enter ID: ");
                     ID = Console.ReadLine();
                     result = admService.Get(ID);
-                    if(result!=null)
+                    if (result != null)
                     {
                         Console.Clear();
                         update_Result = result;
                         CenterTXT("Change FullName: ");
                         FullName = Console.ReadLine();
-                        if(String.IsNullOrWhiteSpace(FullName))
+                        if (String.IsNullOrWhiteSpace(FullName))
                         {
                             CenterTXTL("No changes applied!");
                         }
@@ -286,12 +291,12 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXT("Enter ID: ");
                     ID = Console.ReadLine();
                     result = admService.Get(ID);
-                    if(result!=null)
+                    if (result != null)
                     {
                         CenterTXTL($"{result.FullName} has been Deleted");
                         CenterTXTL("__________________________________");
                         admService.DELETE(result);
-                        
+
                     }
                     else
                     {
@@ -308,7 +313,7 @@ namespace Hotel_ManSys.MenuSystem
                     Console.Clear();
                     CenterTXT("Enter ID: ");
                     ID = Console.ReadLine();
-                     result =  admService.Get(ID);
+                    result = admService.Get(ID);
                     if (result != null)
                     {
                         Console.Clear();
@@ -337,14 +342,14 @@ namespace Hotel_ManSys.MenuSystem
                     AdminMenu();
                     break;
                 //Navigate back to DashBoard
-                case 5:    
+                case 5:
                     DashBoardMENU();
                     break;
             }
         }
         #endregion Admin
 
-
+        //Room CRUD Menu
         #region Room
         public static void RoomsMenu()
         {
@@ -359,20 +364,20 @@ namespace Hotel_ManSys.MenuSystem
             Menu roomsMenu = new Menu(prompt, new List<string>() { "Create", "Update", "Delete", "Find", "List", "Exit" });
             int selectedIndex = roomsMenu.Run();
 
-            switch(selectedIndex)
+            switch (selectedIndex)
             {
-            
+
                 //Create new Room
                 case 0:
                     Console.Clear();
                     CenterTXT("Enter Room Type: ");
                     RoomType = Console.ReadLine();
-                    while(String.IsNullOrWhiteSpace(RoomType))
+                    while (String.IsNullOrWhiteSpace(RoomType))
                     {
                         CenterTXT("Reenter Room Type: ");
                         RoomType = Console.ReadLine();
                     }
-                    CenterTXT("Enter Price: ");                
+                    CenterTXT("Enter Price: ");
                     success = Double.TryParse(Console.ReadLine(), out RoomPrice);
                     while (!success)
                     {
@@ -382,14 +387,14 @@ namespace Hotel_ManSys.MenuSystem
                     }
 
 
-                     room = new ROOM(RoomType, RoomPrice);
+                    room = new ROOM(RoomType, RoomPrice);
                     roomService.CREATE(room);
                     CenterTXTL("Room Created!");
                     Console.WriteLine("\n \n Press any key to navigate back to Rooms Menu");
-                    Console.ReadKey(true);                 
+                    Console.ReadKey(true);
                     RoomsMenu();
-                    break;    
-              //Updating room
+                    break;
+                //Updating room
                 case 1:
                     Console.Clear();
                     CenterTXT("Room Number: ");
@@ -411,7 +416,7 @@ namespace Hotel_ManSys.MenuSystem
                         roomService.Update(room, room_updated);
                         CenterTXTL("_________________________________________");
                         CenterTXTL("Updated: ");
-                        CenterTXTL($"Room Number: {room_updated.number} | Type: {room_updated.type} | Price: {room_updated.pricePerNight.ToString("C2")}"); 
+                        CenterTXTL($"Room Number: {room_updated.number} | Type: {room_updated.type} | Price: {room_updated.pricePerNight.ToString("C2")}");
                     }
                     else
                     {
@@ -443,13 +448,13 @@ namespace Hotel_ManSys.MenuSystem
                     Console.ReadKey(true);
                     RoomsMenu();
                     break;
-                    //Finding Room
+                //Finding Room
                 case 3:
                     Console.Clear();
                     CenterTXT("Room Number: ");
                     RoomNumber = Console.ReadLine();
                     room = roomService.Get(RoomNumber);
-                    if(room!=null)
+                    if (room != null)
                     {
                         CenterTXTL("__________________________________________");
                         CenterTXTL($"Room Number: {room.number} | Type: {room.type} | Price: {room.pricePerNight.ToString("C2")}");
@@ -463,7 +468,7 @@ namespace Hotel_ManSys.MenuSystem
                     Console.ReadKey(true);
                     RoomsMenu();
                     break;
-                    //Listing All Rooms
+                //Listing All Rooms
                 case 4:
                     Console.Clear();
                     foreach (ROOM roomITEM in roomService.GetALL())
@@ -473,18 +478,18 @@ namespace Hotel_ManSys.MenuSystem
                     }
                     Console.WriteLine("\n \n Press any key to navigate back to Rooms Menu");
                     Console.ReadKey(true);
-                    RoomsMenu();      
+                    RoomsMenu();
                     break;
-                    //Navigate back to Dashboard
+                //Navigate back to Dashboard
                 case 5:
                     DashBoardMENU();
                     break;
-               
+
             }
         }
         #endregion Room
 
-
+        //Customer CRUD Menu
         #region Customer
         public static void CustomerMenu()
         {
@@ -542,8 +547,8 @@ namespace Hotel_ManSys.MenuSystem
                 case 1:
                     Console.Clear();
                     CenterTXT("Enter ID: ");
-                    ID = Console.ReadLine();    
-                    
+                    ID = Console.ReadLine();
+
                     while (String.IsNullOrWhiteSpace(ID))
                     {
                         CenterTXT("Reenter ID: ");
@@ -553,7 +558,7 @@ namespace Hotel_ManSys.MenuSystem
                     if (customer != null)
                     {
                         Console.Clear();
-                        customer_update= customer;
+                        customer_update = customer;
                         CenterTXT("Change Phone Number: ");
                         success = Int32.TryParse(Console.ReadLine(), out PhoneNumber);
                         while (!success)
@@ -590,11 +595,11 @@ namespace Hotel_ManSys.MenuSystem
                         ID = Console.ReadLine();
                     }
                     customer = custService.Get(ID);
-                    if(customer!=null)
+                    if (customer != null)
                     {
                         CenterTXTL($"Customer: {customer.FullName} has been Deleted");
                         CenterTXTL("__________________________________");
-                       
+
                         custService.DELETE(customer);
                     }
                     else
@@ -617,7 +622,7 @@ namespace Hotel_ManSys.MenuSystem
                         ID = Console.ReadLine();
                     }
                     customer = custService.Get(ID);
-                    if(customer!=null)
+                    if (customer != null)
                     {
                         CenterTXTL("__________________________________________________________________________________________________________________________________");
                         CenterTXTL($"Customer: {customer.FullName} | ID: {customer.ID} | Phone Number: {customer.phoneNumber.ToString("(000) 000-00-00")}");
@@ -651,40 +656,38 @@ namespace Hotel_ManSys.MenuSystem
             }
         }
         #endregion Customer
-
+        //Booking Menu with available rooms showing up on CREATE MENU
         #region Booking
-        public static void BookingMenu()
+        private static void BookingMenu()
         {
             Console.Clear();
-            string prompt = @"                                                                                                                                  
-                                                     _/_/_/      _/    _/         _/_/_/   _/_/_/_/_/        _/_/        _/      _/       _/_/_/_/       _/_/_/          _/_/_/   
-                                                  _/            _/    _/       _/             _/          _/    _/      _/_/  _/_/       _/             _/    _/      _/          
-                                                 _/            _/    _/         _/_/         _/          _/    _/      _/  _/  _/       _/_/_/         _/_/_/          _/_/       
-                                                _/            _/    _/             _/       _/          _/    _/      _/      _/       _/             _/    _/            _/      
-                                                 _/_/_/        _/_/         _/_/_/         _/            _/_/        _/      _/       _/_/_/_/       _/    _/      _/_/_/         
-                                                                                                                                  
-                                                                                                                                  
+            string prompt = @"
+                                                                                .----.  .----.  .----. .-. .-..-..-. .-. .---. 
+                                                                                | {}  }/  {}  \/  {}  \| |/ / | ||  `| |/   __}
+                                                                                | {}  }\      /\      /| |\ \ | || |\  |\  {_ }
+                                                                                `----'  `----'  `----' `-' `-'`-'`-' `-' `---' 
 
 ";
+
             Menu bookingMenu = new Menu(prompt, new List<string>() { "Create", "Update", "Delete", "Find", "List", "Exit" });
             int selectedIndex = bookingMenu.Run();
 
-            switch(selectedIndex)
+            switch (selectedIndex)
             {
                 case 0:
                     Console.Clear();
                     CenterTXT("Enter Check-In Date(dd.MM.yyyy): ");
                     inDATE_input = Console.ReadLine();
-                    success = DateTime.TryParseExact(inDATE_input, "dd.MM.yyyy", cultInfo,DateTimeStyles.None, out inDATE);
-                    while(!success)
+                    success = DateTime.TryParseExact(inDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out inDATE);
+                    while (!success)
                     {
                         CenterTXT("Reenter Check-In Date(dd.MM.yyyy): ");
                         inDATE_input = Console.ReadLine();
                         success = DateTime.TryParseExact(inDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out inDATE);
                     }
-                    CenterTXTL("");                   
+                    CenterTXTL("");
 
-                    
+
                     CenterTXT("Enter Check-out Date(dd.MM.yyyy): ");
                     outDATE_input = Console.ReadLine();
                     success = DateTime.TryParseExact(outDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out outDATE);
@@ -695,17 +698,34 @@ namespace Hotel_ManSys.MenuSystem
                         success = DateTime.TryParseExact(outDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out outDATE);
 
                     }
-                    availRooms = bookingService.GetALL().FindAll(room => room.check_inDATE < inDATE && room.check_outDATE > outDATE );
+                    availRoomsBOOKINGLIST = bookingService.GetALL().FindAll(room => (room.check_inDATE > inDATE && room.check_inDATE > outDATE) || (room.check_outDATE < inDATE && room.check_inDATE < outDATE));
 
-                    availRooms2 = roomService.GetALL().FindAll(room => bookingService.GetALL().Exists(booking=>booking.room_Number!=room.number));
-                    if(availRooms.Count>0 || availRooms2.Count > 0)
+                    for (int i = 0; i < availRoomsBOOKINGLIST.Count; i++)
                     {
-                        foreach (BOOKING roomITEM in availRooms)
+                        for (int j = 0; j < availRoomsBOOKINGLIST.Count-1; j++)
                         {
-                            CenterTXTL($"Room Number: {roomITEM.room_Number} | Price: {roomITEM.room_Price}");
+                            if (availRoomsBOOKINGLIST[i].room_Number == availRoomsBOOKINGLIST[j+1].room_Number)
+                            {
+                                dublicate = true;
+                            }
+                        }
+                        if (dublicate)
+                        {
+                            availRoomsBOOKINGLIST.Remove(availRoomsBOOKINGLIST[i]);
+                        }
+                        dublicate = false;
+                    }
+
+
+                    availRoomsROOMLIST = roomService.GetALL().FindAll(room => bookingService.GetALL().Exists(booking => booking.room_Number != room.number));
+                    if (availRoomsBOOKINGLIST.Count > 0 || availRoomsROOMLIST.Count > 0)
+                    {
+                        foreach (BOOKING bookingITEM in availRoomsBOOKINGLIST)
+                        {
+                            CenterTXTL($"Room Number: {bookingITEM.room_Number} | Price: {roomService.Get(bookingITEM.room_Number).pricePerNight}");
                             CenterTXTL("____________________________________________________________________");
                         }
-                        foreach (ROOM roomITEM in availRooms2)
+                        foreach (ROOM roomITEM in availRoomsROOMLIST)
                         {
                             CenterTXTL($"Room Number: {roomITEM.number} | Price: {roomITEM.pricePerNight}");
                             CenterTXTL("____________________________________________________________________");
@@ -728,7 +748,7 @@ namespace Hotel_ManSys.MenuSystem
                     {
                         CenterTXT("Enter Room Number: ");
                         RoomNumber = Console.ReadLine();
-                        while (!(availRooms.Exists(room => room.room_Number == RoomNumber) || availRooms2.Exists(room => room.number == RoomNumber)))
+                        while (!(availRoomsBOOKINGLIST.Exists((room => room.room_Number == RoomNumber)) || availRoomsROOMLIST.Exists(room => room.number == RoomNumber)))
                         {
                             CenterTXT("Reenter Room Number: ");
                             RoomNumber = Console.ReadLine();
@@ -739,7 +759,7 @@ namespace Hotel_ManSys.MenuSystem
                         booking = new BOOKING(ID, RoomNumber, RoomPrice, inDATE, outDATE);
                         CenterTXTL($"Room: {RoomNumber} has been booked!");
                         bookingService.CREATE(booking);
-                        
+
                     }
                     else
                     {
@@ -748,8 +768,7 @@ namespace Hotel_ManSys.MenuSystem
                         Console.ReadKey(true);
                         CustomerMenu();
                     }
-                    availRooms.Clear();
-                    availRooms2.Clear();
+
                     Console.WriteLine("\n\n Press any key to navigate to Booking Menu");
                     Console.ReadKey(true);
                     BookingMenu();
@@ -759,7 +778,7 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXTL("Enter Booking ID: ");
                     ID = Console.ReadLine();
                     booking = bookingService.Get(ID);
-                    if(booking!=null)
+                    if (booking != null)
                     {
                         booking_update = booking;
 
@@ -785,7 +804,7 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXT("Enter Booking ID: ");
                     ID = Console.ReadLine();
                     booking = bookingService.Get(ID);
-                    if(booking!=null)
+                    if (booking != null)
                     {
                         CenterTXTL($"Booking: {booking.ID} has been deleted");
                         bookingService.DELETE(booking);
@@ -803,7 +822,7 @@ namespace Hotel_ManSys.MenuSystem
                     CenterTXT("Enter Booking ID: ");
                     ID = Console.ReadLine();
                     booking = bookingService.Get(ID);
-                    if(booking!=null)
+                    if (booking != null)
                     {
                         CenterTXTL("______________________________________________________________________________________________________________________________________");
                         CenterTXTL($"Booking ID: {booking.ID} | Customer ID: {booking.customer_ID} | Booking Date: {booking.bookingDate} | Check In: {booking.check_inDATE.ToString("dd.MM.yyyy")} | Check Out: {booking.check_outDATE.ToString("dd.MM.yyyy")}");
@@ -832,9 +851,16 @@ namespace Hotel_ManSys.MenuSystem
                     break;
             }
 
-        }
-        #endregion Booking
 
+            #endregion Booking
+
+           
+            
+
+
+
+        }
+        //Booking Search Menu
         #region BookingReport
         private static void BookingReport()
         {
@@ -860,10 +886,10 @@ namespace Hotel_ManSys.MenuSystem
             {
                 case 0:
                     Console.Clear();
-                    CenterTXT("Enter Customer ID");
+                    CenterTXT("Enter Customer ID: ");
                     ID = Console.ReadLine();
                     booking_List = bookingService.GetALL().FindAll((booking => booking.customer_ID == ID));
-                    if(booking_List.Count>0)
+                    if (booking_List.Count > 0)
                     {
                         foreach (BOOKING booking in booking_List)
                         {
@@ -906,8 +932,8 @@ namespace Hotel_ManSys.MenuSystem
                 case 2:
                     Console.Clear();
                     CenterTXT("Enter Room Number: ");
-                    RoomNumber= Console.ReadLine();
-                   
+                    RoomNumber = Console.ReadLine();
+
                     booking_List = bookingService.GetALL().FindAll(booking => booking.room_Number == RoomNumber);
                     if (booking_List.Count > 0)
                     {
@@ -931,10 +957,11 @@ namespace Hotel_ManSys.MenuSystem
                     break;
             };
         }
-            #endregion BookingReport
-            //Hotel Introduction Animation
+        #endregion BookingReport
 
-            private static void AnimationIntro()
+
+        //Hotel Introduction Animation
+        private static void AnimationIntro()
         {
             Console.CursorVisible = false;
             ConsoleKeyInfo keyAvail;
@@ -945,7 +972,7 @@ with our exclusive rooms, you will feel like you had a World Tour Trip :)";
             {
                 Console.Write(s[i]);
                 Thread.Sleep(50);
-                if(Console.KeyAvailable)
+                if (Console.KeyAvailable)
                 {
                     keyAvail = Console.ReadKey(true);
                     Console.Write(s.Substring(i));
@@ -959,7 +986,7 @@ with our exclusive rooms, you will feel like you had a World Tour Trip :)";
         }
 
 
-     
+
 
         //Centering Text Content -- WriteLine
         public static void CenterTXTL(string s)
@@ -974,7 +1001,10 @@ with our exclusive rooms, you will feel like you had a World Tour Trip :)";
             Console.SetCursorPosition((Console.WindowWidth - s.Length) / 2, Console.CursorTop + 1);
             Console.Write(s);
         }
+
+
     }
+}
 
   
-}
+
