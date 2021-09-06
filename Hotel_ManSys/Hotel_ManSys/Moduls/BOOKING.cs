@@ -15,6 +15,8 @@ namespace Hotel_ManSys.Moduls
         public DateTime bookingDate;
         public DateTime check_inDATE;
         public DateTime check_outDATE;
+        public DateTime Customer_CHECKIN;
+        public DateTime Customer_CHECKOUT;
         private  string idgen = "";
         public BOOKING(string customer_id , string room_number, double price, DateTime checkinDate , DateTime checkoutDate)
         {

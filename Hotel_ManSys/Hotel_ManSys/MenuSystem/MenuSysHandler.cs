@@ -669,7 +669,7 @@ namespace Hotel_ManSys.MenuSystem
 
 ";
 
-            Menu bookingMenu = new Menu(prompt, new List<string>() { "Create", "Update", "Delete", "Find", "List", "Exit" });
+            Menu bookingMenu = new Menu(prompt, new List<string>() { "Create", "Update", "Delete", "Find", "List", "Check-In", "Check-Out", "Show Available Rooms for Today", "Exit" });
             int selectedIndex = bookingMenu.Run();
 
             switch (selectedIndex)
@@ -697,6 +697,33 @@ namespace Hotel_ManSys.MenuSystem
                         outDATE_input = Console.ReadLine();
                         success = DateTime.TryParseExact(outDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out outDATE);
 
+                    }
+                    while(outDATE<inDATE)
+                    {
+                        Console.Clear();
+                        CenterTXTL("Invalid Check-Out Date! Check-Out Date must be greater date than Check-In Date ");
+                        CenterTXT("Enter Check-In Date(dd.MM.yyyy): ");
+                        inDATE_input = Console.ReadLine();
+                        success = DateTime.TryParseExact(inDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out inDATE);
+                        while (!success)
+                        {
+                            CenterTXT("Reenter Check-In Date(dd.MM.yyyy): ");
+                            inDATE_input = Console.ReadLine();
+                            success = DateTime.TryParseExact(inDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out inDATE);
+                        }
+                        CenterTXTL("");
+
+
+                        CenterTXT("Enter Check-out Date(dd.MM.yyyy): ");
+                        outDATE_input = Console.ReadLine();
+                        success = DateTime.TryParseExact(outDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out outDATE);
+                        while (!success)
+                        {
+                            CenterTXT("Enter Check-out Date(dd.MM.yyyy): ");
+                            outDATE_input = Console.ReadLine();
+                            success = DateTime.TryParseExact(outDATE_input, "dd.MM.yyyy", cultInfo, DateTimeStyles.None, out outDATE);
+
+                        }
                     }
                     availRoomsBOOKINGLIST = bookingService.GetALL().FindAll(room => (room.check_inDATE > inDATE && room.check_inDATE > outDATE) || (room.check_outDATE < inDATE && room.check_inDATE < outDATE));
 
@@ -768,7 +795,8 @@ namespace Hotel_ManSys.MenuSystem
                         Console.ReadKey(true);
                         CustomerMenu();
                     }
-
+                    availRoomsBOOKINGLIST.Clear();
+                    availRoomsROOMLIST.Clear();
                     Console.WriteLine("\n\n Press any key to navigate to Booking Menu");
                     Console.ReadKey(true);
                     BookingMenu();
@@ -847,6 +875,93 @@ namespace Hotel_ManSys.MenuSystem
                     BookingMenu();
                     break;
                 case 5:
+                    Console.Clear();
+                    CenterTXT("Enter Booking ID: ");
+                    ID = Console.ReadLine();
+                    booking = bookingService.Get(ID);
+                    if (booking != null)
+                    {
+                        booking_update = booking;
+                        booking_update.Customer_CHECKIN = DateTime.Now;
+                        bookingService.Update(booking, booking_update);
+                    }
+                    else
+                    {
+                        CenterTXTL("No Such Booking");
+                    }
+                    Console.WriteLine("\n\n Press any key to navigate back to Booking Menu");
+                    Console.ReadKey(true);
+                    BookingMenu();
+                    break;
+                case 6:
+                    Console.Clear();
+                    CenterTXT("Enter Booking ID: ");
+                    ID = Console.ReadLine();
+                    booking = bookingService.Get(ID);
+                    if (booking != null)
+                    {
+                        booking_update = booking;
+                        booking_update.Customer_CHECKOUT = DateTime.Now;
+                        booking_update.check_outDATE = DateTime.Now; 
+                        bookingService.Update(booking, booking_update);
+                    }
+                    else
+                    {
+                        CenterTXTL("No Such Booking");
+                    }
+                    Console.WriteLine("\n\n Press any key to navigate back to Booking Menu");
+                    Console.ReadKey(true);
+                    BookingMenu();
+                    break;
+                case 7:
+                    Console.Clear();
+                    availRoomsBOOKINGLIST = bookingService.GetALL().FindAll(room => ((room.check_inDATE > DateTime.Now) || (room.check_outDATE < DateTime.Now) ));
+
+                    for (int i = 0; i < availRoomsBOOKINGLIST.Count; i++)
+                    {
+                        for (int j = 0; j < availRoomsBOOKINGLIST.Count - 1; j++)
+                        {
+                            if (availRoomsBOOKINGLIST[i].room_Number == availRoomsBOOKINGLIST[j + 1].room_Number)
+                            {
+                                dublicate = true;
+                            }
+                        }
+                        if (dublicate)
+                        {
+                            availRoomsBOOKINGLIST.Remove(availRoomsBOOKINGLIST[i]);
+                        }
+                        dublicate = false;
+                    }
+
+
+                    availRoomsROOMLIST = roomService.GetALL().FindAll(room => bookingService.GetALL().Exists(booking => booking.room_Number != room.number));
+                    if (availRoomsBOOKINGLIST.Count > 0 || availRoomsROOMLIST.Count > 0)
+                    {
+                        foreach (BOOKING bookingITEM in availRoomsBOOKINGLIST)
+                        {
+                            CenterTXTL($"Room Number: {bookingITEM.room_Number} | Price: {roomService.Get(bookingITEM.room_Number).pricePerNight}");
+                            CenterTXTL("____________________________________________________________________");
+                        }
+                        foreach (ROOM roomITEM in availRoomsROOMLIST)
+                        {
+                            CenterTXTL($"Room Number: {roomITEM.number} | Price: {roomITEM.pricePerNight}");
+                            CenterTXTL("____________________________________________________________________");
+                        }
+                    }
+                    else
+                    {
+                        CenterTXTL("No Room Available");
+                        CenterTXTL("Press any key to navigate back to Booking menu");
+                        Console.ReadKey(true);
+                        BookingMenu();
+                    }
+                    availRoomsBOOKINGLIST.Clear();
+                    availRoomsROOMLIST.Clear();
+                    CenterTXTL("Press any key to navigate back to Booking menu");
+                    Console.ReadKey(true);
+                    BookingMenu();
+                    break;
+                case 8:
                     DashBoardMENU();
                     break;
             }
