@@ -78,7 +78,7 @@ namespace Hotel_ManSys.MenuSystem
         public void Start()
         {
             //Setting up Console environment
-            Console.SetWindowSize(220, 40);
+            Console.SetWindowSize(200, 40);
             Console.Title = "el Hotel de Viaje // The Trip Hotel";
 
             //Animations Starting
@@ -666,8 +666,7 @@ namespace Hotel_ManSys.MenuSystem
         private static void BookingMenu()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.BackgroundColor = ConsoleColor.Gray;
+
             string prompt = @"
                                                                                 .----.  .----.  .----. .-. .-..-..-. .-. .---. 
                                                                                 | {}  }/  {}  \/  {}  \| |/ / | ||  `| |/   __}
@@ -942,6 +941,7 @@ namespace Hotel_ManSys.MenuSystem
 
 
                     availRoomsROOMLIST = roomService.GetALL().FindAll(room => bookingService.GetALL().Exists(booking => booking.room_Number != room.number));
+
                     if (availRoomsBOOKINGLIST.Count > 0 || availRoomsROOMLIST.Count > 0)
                     {
                         foreach (BOOKING bookingITEM in availRoomsBOOKINGLIST)
