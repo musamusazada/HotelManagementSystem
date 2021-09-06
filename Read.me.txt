@@ -1,16 +1,27 @@
 ~~Hotel Management System with Menu Implementation~~
 
-Features:
+IDEA:
+"el Hotel de Viaje // The Trip Hotel" is an Hotel Conception where rooms are full of their respective Country names. Every room has a routine, customer can decide
+to take part in those routins. Routins are divided in 3 parts of the day. Morning , Noon and Evening. Every part has different cultural presentation in a way that
+you will feel like you are German, Italian or American. "
+
+App Features:
 *Fully Navigatable Menu
 *Auto Unique ID Generator
 *Secure Password Input
 *Booking System
 *CRUD for Admins, Customers, Rooms, Bookings
+*Manual and Auto Check-In , Check-Out
+*Available Rooms for Today (For 1 night customers)
+*Available Rooms advanced search during Booking
+----------------------------------------------------------
+
+User "Arrow Keys" to navigate and "Enter" for Next Page/Menu
 
 ----------------------------------------------------------
 
-User Arrow Keys to navigate and Enter for Next Page/Menu
 
-----------------------------------------------------------
+
+Navigate to => https://github.com/musamusazada/HotelManagementSystem.git
 
 
